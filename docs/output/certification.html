@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Flash_words</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <main>
+    <h2>🛡️ユーザ認証</h2>
+<ul>
+<li>正当な利用者であることを確かめる技術。</li>
+<li>方法：ユーザID、パスワード、ICカード、USBキー、 <span class="cloze">バイオメトリクス認証</span></li>
+<li><span class="cloze">バイオメトリクス認証</span> ：指紋や静脈パターン、虹彩を用いる。</li>
+<li><span class="cloze">バイオメトリクス認証</span> で <span class="cloze">虹彩</span> は経年劣化が少なく、 <span class="cloze">顔認証</span> より精度が高い。</li>
+<li><span class="cloze">バイオメトリクス認証</span> は漏れたときのリスクが高い → 最近は「 <span class="cloze">多要素認証</span> （生体＋パスワード＋端末）」が多い。</li>
+<li>USBキー：USBインタフェースを備えたセキュリティ機器、ハードウェア認証に用いられる。</li>
+</ul>
+<h2>🛡️チャレンジレスポンス方式</h2>
+<ul>
+<li>パスワード <span class="cloze">そのものを送る</span> のではなく、パスワードを <span class="cloze">元にした応答</span> を返すことで証明する方式。</li>
+<li>チャレンジレスポンス方式を用いた認証方式を <span class="cloze">CHAP</span> （Challenge Handshake Authentication Protocol）とよぶ。</li>
+<li>💡認証の流れ：</li>
+<li>① サーバが <span class="cloze">チャレンジ</span> （ <span class="cloze">問題</span> ）を出す。</li>
+<li>② クライアントが <span class="cloze">レスポンス</span> （ <span class="cloze">答え</span> ）を返す。</li>
+<li>③ サーバが正しい答えかを確認して認証する。</li>
+<li>この方式はパスワードそのものは <span class="cloze">ネットワークに流さない</span> ため、パスワードの <span class="cloze">漏洩</span> を防止できる。</li>
+<li>チャレンジとレスポンスが <span class="cloze">毎回異なる</span> ので、 <span class="cloze">リプレイ</span> 攻撃も防止できる。</li>
+<li><span class="cloze">リプレイ攻撃</span> ：暗号化されたパスワードを盗み出し、そのまま再利用することで <span class="cloze">他者になりすます</span> 攻撃。</li>
+<li>証明の仕方：チャレンジに対して <span class="cloze">パスワードを元に計算した答え</span> （ <span class="cloze">ハッシュなど</span> ）を返す。</li>
+<li>・SSHやWi-FiのWPA2認証でもこの仕組みが使われてる。</li>
+</ul>
+<h2>🛡️ゼロ知識証明</h2>
+<ul>
+<li>パスワード <span class="cloze">そのものを送る</span> のではなく、パスワードを <span class="cloze">所有することを証明</span> する方式。</li>
+<li>相手には <span class="cloze">一切秘密が漏れない</span> </li>
+<li>💡「相手に一切の知識（=秘密の内容）を渡さずに、自分がそれを知っていることだけを証明する」技術。</li>
+<li>自分が正しいことを「見せる」→「その過程で何かしらの情報が漏れちゃうかもしれない」を <span class="cloze">回避</span> するトリッキーな証明方法。</li>
+<li>🧙‍♂️「わたしは答えを知ってます。でも、<strong>内容は絶対に教えません</strong>。けど、<strong>本当に知ってる</strong>ってことだけはあなたに<strong>信じさせてみせます！</strong>」</li>
+<li>レベル高い数学や暗号の仕組みが入ってくるから、ちゃんと自動化されたライブラリやフレームワークを使うことが多い。</li>
+<li>ブロックチェーンで使われる ZK-SNARKs（ズィーケー・スナークス）</li>
+<li>プライバシー保護プロトコル（例：Zcash）</li>
+<li>暗号通貨・機密性が超重要な場面で使われる。</li>
+</ul>
+<h2>🛡️認証サーバ</h2>
+<ul>
+<li>認証サーバ：ユーザが本物かどうか確認する（ <span class="cloze">ログイン</span> ）</li>
+<li><strong>RADIUS</strong>：ネットワークへのアクセス認証、認可、アカウンティング（利用記録）を管理するためのプロトコルおよびサーバシステム。</li>
+<li>⇩RADIUSは主に以下の3つの機能（ <span class="cloze">AAAフレームワーク</span> ）を提供</li>
+<li>①  <span class="cloze">認証</span> （ <span class="cloze">Authentication</span> ）：ユーザが本人であることを確認</li>
+<li>② <span class="cloze">認可</span> （ <span class="cloze">Authorization</span> ）：認証されたユーザに適切なアクセス権限を付与</li>
+<li>③  <span class="cloze">アカウンティング</span> （ <span class="cloze">Accounting</span> ）：ユーザのリソース使用状況を記録・管理</li>
+<li>💡RADIUSはクライアントサーバシステムの典型的な例</li>
+<li>🔐<strong>RADIUSサーバ</strong>：認証サービスを <span class="cloze">提供</span> する側</li>
+<li>・ ユーザーデータベースへのアクセス権を持つ</li>
+<li>・ 認証リクエストを処理し、結果を返す</li>
+<li>・ 通常は企業のサーバルームやデータセンターに設置</li>
+<li>・ ネットワークアクセスサーバ(NAS)、VPNサーバ、無線LANアクセスポイントなど</li>
+<li>🖥<strong>RADIUSクライアント</strong>：サービスを <span class="cloze">要求</span> する側</li>
+<li>・ アクセスポイントやルーターなどのネットワーク機器</li>
+<li>・ ユーザーからの接続要求を受け、RADIUSサーバに認証を依頼</li>
+<li>・ 認証結果に基づいてユーザーのネットワークアクセスを制御</li>
+<li>・ Active Directory、LDAPなど</li>
+<li>✅<strong>RADIUS技術的特徴</strong></li>
+<li>・ UDPプロトコル上で動作（標準ポート：認証/認可は1812、アカウンティングは1813）</li>
+<li>・ さまざまな認証方式をサポート（PAP、CHAP、MS-CHAPv2、EAP など）</li>
+</ul>
+<h2>🛡️リスクベース認証</h2>
+<ul>
+<li>ユーザーの <span class="cloze">行動</span> に応じてリスクを <span class="cloze">判断</span>し、 <span class="cloze">認証レベル</span> を変える方式。</li>
+<li>例：普段と違う場所やデバイスからログインしようとしたら、 <span class="cloze">追加認証</span> （例： <span class="cloze">SMS認証</span> ）</li>
+</ul>
+<h2>⏱️ワンタイムパスワード</h2>
+<ul>
+<li><span class="cloze">使い捨て</span> パスワード（ <span class="cloze">1回だけ</span> 使える）</li>
+<li>一定時間で <span class="cloze">自動的に無効</span> になる →  <span class="cloze">使いまわし</span> できない。</li>
+</ul>
+<h2>🔑シングルサインオン</h2>
+<ul>
+<li><span class="cloze">一度ログインすれば</span> 、複数のサービスを使える仕組み。</li>
+<li>GoogleアカウントでGmail、YouTube、Google Driveにアクセスできる。</li>
+<li>MicrosoftアカウントでTeams、Outlookなどに一括ログイン。</li>
+</ul>
+<h2>🖋デジタル署名</h2>
+<ul>
+<li>データの <span class="cloze">正当性</span> を保証するために付与される <span class="cloze">暗号化</span> された情報。</li>
+<li>データの <span class="cloze">送信者</span> を証明し、データが <span class="cloze">改ざん</span> されていないことを保証する。</li>
+<li>「これは確かに <span class="cloze">送信者</span> が書いた！ <span class="cloze">改ざん</span> もされてない！」ことを確かめる。</li>
+<li>デジタル署名は <span class="cloze">現実世界の署名と同様の効力を持つ</span> ことが、 <span class="cloze">電子署名法</span> によって定められている。</li>
+<li>💡認証ステップ</li>
+<li>① 送信者は、送信データを <span class="cloze">ハッシュ</span> して <span class="cloze">メッセージダイジェスト</span> を生成する （<strong>ダイジェストA</strong>）</li>
+<li>② 送信者は、送信者の <span class="cloze">秘密鍵</span> を用いてダイジェストAを <span class="cloze">暗号化</span> してデジタル署名を生成する。</li>
+<li>③ 署名をデータに付加して受信者に送る。</li>
+<li>④ 受信者は、データに付加されたデジタル署名を <span class="cloze">送信者</span> の <span class="cloze">公開鍵</span> を用いて復号し、元のダイジェストAを得る。</li>
+<li>⑤ 受信者は、 <span class="cloze">受信したデータ</span> からメッセージダイジェストを生成する（<strong>ダイジェストB</strong>）</li>
+<li>⑥ <strong>ダイジェストAとダイジェストBが一致</strong>すれば、データを受け取る。</li>
+<li>💡改ざんされたらハッシュはどうなる？</li>
+<li>🖋ハッシュ（SHA-256 の例）</li>
+<li>→ Hello, world! のhash : a591a6d40bf420404a011733cfb7b190...</li>
+<li>→ Hello, world. のhash : b94d27b9934d3e08a52e52d7da7dabfa...</li>
+<li>💡メッセージダイジェスト：メッセージを要約したもの = ハッシュ関数</li>
+<li>ハッシュ関数は 送信者と受信者で「 <span class="cloze">合意済み</span> 」のものを使う。</li>
+<li>ユーザーが特別な操作をしなくても、ちゃんと「安全なものが使われるよう設計されてる」</li>
+<li>💬 メッセージアプリ：アプリがデフォルトで安全なハッシュ（例：SHA-256）を使う。</li>
+<li>🌐 ウェブサイトのHTTPS証明書：サーバーと証明機関（CA）が使うハッシュを<strong>事前に規定・合意</strong>してる。</li>
+<li>📄 電子契約サービス：サービス提供者が信頼できるハッシュ関数を使って署名を生成してる。</li>
+<li><strong>事前合意</strong>：通信や署名のやりとりで、<strong>使う方式（ハッシュ関数・署名アルゴリズムなど）を“お互いに分かってる・受け入れてる”状態</strong></li>
+<li>💡「合意」はいつされるの？</li>
+<li>① <strong>ウェブのHTTPS（SSL/TLS）通信のとき</strong></li>
+<li>・ タイミング：接続の最初（ハンドシェイク）</li>
+<li>・ ブラウザとサーバーが「TLSハンドシェイク」でやりとりする中で</li>
+<li>・ お互いが対応している方式を見せ合って、その中から「これにしようね！」って決める</li>
+<li>・ これが<strong>自動的に &amp; 瞬時に</strong>行われる！</li>
+<li>② <strong>電子契約・デジタル署名ファイル（PDFなど）の場合</strong></li>
+<li>・ タイミング：署名を付けるとき</li>
+<li>・ 「この署名は SHA-256 + RSA で作りました」って情報がPDFに記録される</li>
+<li>・ 読み取る側は「それに対応して検証」すればOK</li>
+<li>・ 「署名者が指定し、受け手はそれに従う」＝<strong>暗黙の合意</strong></li>
+<li>③ <strong>公開鍵を配布する場合（PGPなど）</strong></li>
+<li>・ タイミング：鍵を配るとき</li>
+<li>・ メール暗号化や個人間の署名では、鍵の使い方を<strong>ドキュメントや設定で共有する</strong> （PCが読める形式）</li>
+<li>👀鍵ファイルを覗こう！.asc（ASCII形式のPGP鍵） .pem（証明書・鍵）.cer / .crt（証明書）</li>
+</ul>
+<h2>🛡️ハッシュ関数の性質</h2>
+<ul>
+<li>ハッシュ関数：データから <span class="cloze">数値</span> を得る関数。</li>
+<li><span class="cloze">一方向性</span> ：ハッシュ値から元データを復元することが困難であること（ <span class="cloze">不可逆性</span> ）</li>
+<li><span class="cloze">衝突困難性</span> ：同じハッシュ値を持つ異なるデータを生成することが困難である。</li>
+<li><span class="cloze">Avalanche</span> （ <span class="cloze">アバランチ</span> ）効果：入力をちょっと変えただけで、出力（ハッシュ値）が全然違うものになる。</li>
+<li><span class="cloze">改ざん検知</span> ：データが改ざんを受けてないことを確認する。</li>
+<li><span class="cloze">否認防止</span> ：データは送信者本人によって作成されたことを「 <span class="cloze">証明可能</span> 」にする。</li>
+</ul>
+<h2>🛡️SHA-256とは</h2>
+<ul>
+<li><strong>SHA（Secure Hash Algorithm）</strong>：信頼されてるハッシュ関数のファミリー</li>
+<li>💡 <strong>SHA-256</strong>：</li>
+<li>・ 出力は 256 ビット（32バイト）</li>
+<li>・ 安全性が高く、電子署名やブロックチェーンで広く使われてる。</li>
+<li>・ 衝突耐性・第二原像耐性・第一原像耐性 が強い。</li>
+<li><strong>衝突耐性</strong>（ <span class="cloze">衝突困難性</span> ）：異なるデータから <span class="cloze">同じハッシュ値</span> が得られない（でも理論上は衝突が存在）</li>
+<li><strong>第二原像耐性</strong>：あるハッシュ値から <span class="cloze">同じハッシュ値になる別の入力</span> を見つけるのが難しい。</li>
+<li><strong>第一原像耐性</strong>（ <span class="cloze">一方向性</span> ）：ハッシュ値から<strong>元の入力を逆算できない</strong>。</li>
+</ul>
+<h2>🕓時刻認証</h2>
+<ul>
+<li>タイムスタンプ局（TSA）と呼ばれる第三者機関がタイムスタンプ（時刻印）を発行することにより、<strong>その時刻に文書が存在</strong>し、<strong>改ざんされていない</strong>こと。を <span class="cloze">証明</span> する方式： <span class="cloze">タイムスタンプトークン</span> と呼ばれる。</li>
+<li>💡何のためにタイムスタンプを使う？</li>
+<li>・ 電子契約や電子文書の<strong>真正性（改ざんされてない）と存在証明</strong>。</li>
+<li>・ 長期保存する電子データの<strong>証拠力の確保</strong>。</li>
+<li>・ 電子署名の<strong>有効期間を延長</strong>するため。</li>
+<li>・ ビジネス文書・論文・開発コードの「作成時刻の証明」など。</li>
+<li>正確な時刻：<strong>NTP</strong>（ネットワーク時刻プロトコル）で国の標準時サーバーと同期 → 日本だと「NICT（情報通信研究機構）」の標準時がベース。</li>
+</ul>
+  </main>
+  <script src="../script.js"></script>
+</body>
+</html>

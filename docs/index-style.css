@@ -1,0 +1,79 @@
+main {
+  max-width: 60%;
+  margin: 0 auto;
+  background-color: #333333;
+  padding: 2rem 0 8rem;
+}
+
+body {
+  background-color: #222222;
+  color: #99CCFF;
+  font-family: "Segoe UI", sans-serif;
+  margin: 0;   /* 要素の外側の余白 */
+  padding: 10rem 0 0 0;  /* 要素の内側の余白 */
+}
+
+h1, h2 {
+  color: #ffccff;  
+  border-bottom: 2px solid #222222;
+  margin: 35px auto 8px ;
+  padding: 0 2.3em 0.2em;
+}
+
+h3 {
+  margin: 35px auto 8px ;
+  padding: 0 2.3em 0.2em;
+}
+
+a {
+  color: #eee;
+}
+
+a:hover {
+  color: #ffccff;
+  text-decoration: underline;
+}
+
+strong {
+  color: #FFFF77;
+}
+
+ul, li {
+ padding-right: 4em;  /* 文字の折り返し位置の調整 */
+}
+
+li {
+  line-height: 1.5;
+  overflow-wrap: break-word;
+  padding: 0 5px 0 2em;
+  list-style: none;
+}
+
+ul {
+  margin-top: 1em;
+  margin-bottom: 2px;
+  padding-left: 2em;
+}
+
+table {
+  border-collapse:  collapse;     /* セルの線を重ねる */
+  margin-right: 5em;
+  margin-left: 5em;
+}
+th {
+  background-color: #222222;
+  font: bold;
+  border: solid 1px #99CCFF;    /* 枠線指定 */
+  padding: 4px;
+}
+td {
+  background-color: #222222;
+  border: solid 1px #99CCFF;    /* 枠線指定 */
+  padding: 4px;
+}
+
+@media screen and (max-width:1120px) {
+ main {
+  max-width: 100%;
+ }
+}

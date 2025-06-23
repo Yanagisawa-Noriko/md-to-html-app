@@ -1,0 +1,181 @@
+/* ダークモード 
+.cloze {
+  background-color: #FFFF77;
+  border-radius: 2px;
+  cursor: pointer;
+  padding: 0 1em;
+  display: inline-block;
+  margin-bottom: 2px; /* マーカー同士の間隔を確保 
+  margin-top: 2px;
+  color: #000;
+}
+  
+.cloze.hidden {
+  color: transparent;
+  background-color: #99CCFF;
+  padding-top: 0;
+}
+
+.cloze:hover {
+  background-color: #FFFF77;
+}
+
+main {
+  max-width: 60%;
+  margin: 0 auto;
+  background-color: #333333;
+  padding: 5px 0 8rem;
+}
+
+body {
+  background-color: #222222;
+  color: #99CCFF;
+  font-family: "Segoe UI", sans-serif;
+  margin: 0;   /* 要素の外側の余白 
+  padding: 0;  /* 要素の内側の余白 
+}
+
+h1, h2, h3 {
+  color: #CC99FF;  
+  border-bottom: 2px solid #222222;
+  margin: 35px auto 8px ;
+  padding: 0 2.3em 0.2em;
+}
+
+strong {
+  color: #FFFF77;
+}
+
+ul, li {
+ padding-right: 4em;  /* 文字の折り返し位置の調整 
+}
+
+li {
+  line-height: 1.5;
+  overflow-wrap: break-word;
+  padding: 0 5px 0 2em;
+  list-style: none;
+}
+
+ul {
+  margin-top: 1em;
+  margin-bottom: 2px;
+  padding-left: 2em;
+}
+
+table {
+  border-collapse:  collapse;     /* セルの線を重ねる 
+  margin-right: 5em;
+  margin-left: 5em;
+}
+th {
+  background-color: #222222;
+  font: bold;
+  border: solid 1px #99CCFF;    /* 枠線指定 
+  padding: 4px;
+}
+td {
+  background-color: #222222;
+  border: solid 1px #99CCFF;    /* 枠線指定 
+  padding: 4px;
+}
+
+@media screen and (max-width:1120px) {
+ main {
+  max-width: 100%;
+ }
+}
+*/
+
+/* ライトモード */
+.cloze {
+  background-color: #48A6A7;
+  border-radius: 2px;
+  cursor: pointer;
+  padding: 0 1em;
+  display: inline-block;
+  margin-bottom: 2px; /* マーカー同士の間隔を確保 */
+  margin-top: 2px;
+  color: #000;
+}
+  
+.cloze.hidden {
+  color: transparent;
+  background-color: #B8CFCE;
+  padding-top: 0;
+}
+
+.cloze:hover {
+  background-color: #9ACBD0;
+}
+
+main {
+  max-width: 60%;
+  margin: 0 auto;
+  background-color: #EAEFEF;
+  padding: 5px 0 8rem;
+}
+
+body {
+  background-color: #B8CFCE;
+  color: #333446;
+  font-family: "Segoe UI", sans-serif;
+  margin: 0;   /* 要素の外側の余白 */
+  padding: 0;  /* 要素の内側の余白 */
+}
+
+h1, h2, h3 {
+  color: #006A71;  
+  border-bottom: 2px solid #222222;
+  margin: 35px auto 8px ;
+  padding: 0 2.3em 0.2em;
+}
+
+strong {
+  color: #333446;
+}
+
+ul, li {
+ padding-right: 4em;  /* 文字の折り返し位置の調整 */
+}
+
+li {
+  line-height: 1.5;
+  overflow-wrap: break-word;
+  padding: 0 5px 0 2em;
+  list-style: none;
+}
+
+ul {
+  margin-top: 1em;
+  margin-bottom: 2px;
+  padding-left: 2em;
+}
+
+table {
+  border-collapse:  collapse;     /* セルの線を重ねる */
+  margin-right: 5em;
+  margin-left: 5em;
+}
+th {
+  background-color: #FBF8EF;
+  font: bold;
+  border: solid 1px #B8CFCE;    /* 枠線指定 */
+  padding: 4px;
+}
+td {
+  background-color: #FBF8EF;
+  border: solid 1px #B8CFCE;    /* 枠線指定 */
+  padding: 4px;
+}
+
+.preserve-text {
+  white-space: pre-wrap;  /*そのままの見た目を保持・折り返しできる*/
+  display: inline-block;  /* sentenceクラスのアンダーラインを消すため */
+}
+
+@media screen and (max-width:1120px) {
+ main {
+  max-width: 100%;
+ }
+}

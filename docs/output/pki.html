@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Flash_words</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <main>
+    <h2>🔒PKI 公開鍵基盤</h2>
+<ul>
+<li>公開鍵基盤：Public Key Infrastructure </li>
+<li><strong>PKI</strong> ：<strong>暗号技術</strong> を「 <span class="cloze">信頼できる形</span> 」で<strong>社会に提供</strong>するための仕組み。</li>
+<li>別々に存在している技術（暗号）（認証）→ 現実インフラとして安全に使えるようにする。</li>
+<li><span class="cloze"> PKI </span>  =  <strong>提供・管理・運用する「仕組み」</strong> </li>
+<li>・ 公開鍵とその所有者を対応付けるための基盤</li>
+<li><strong>信頼のネットワーク</strong>：個人、企業、政府、ソフトウェア会社、すべての <span class="cloze">合意</span> と <span class="cloze">協力</span> で成り立つ。</li>
+<li>💡<strong>1つの会社でPKI</strong>は <span class="cloze">構築</span> できず、 <span class="cloze">信用</span> もされない。</li>
+<li>🏛️ <strong>PKIに必要な 代表的な5つの組織分類</strong>：</li>
+<li>① ユーザー企業：証明書を使う（Webサーバ、メールなど）</li>
+<li>② 認証局（CA）：証明書を発行・管理</li>
+<li>③ 登録局（RA）：本人確認（CAの代理）</li>
+<li>④ ソフトウェア提供者：ブラウザ、OSなどに「 <span class="cloze">信頼できるCAリスト</span> 」を持ってる</li>
+<li>⑤ ブラウザ/OSベンダー： <span class="cloze">ルート証明書</span> を信頼する（例：Microsoft, Apple, Mozilla）</li>
+<li>💡PKIにおける工程と役割</li>
+</ul>
+<table>
+  <tr>
+    <th >工程</th><th>内容</th><th>誰が実施？</th><th>PKIの中の役割</th>
+  </tr>
+  <tr>
+    <td>証明書の発行</td><td >利用者の公開鍵をCAが証明書にする</td><td>CA（認証局）</td><td >信頼できる第三者として</td>
+  </tr>
+  <tr>
+    <td>証明書の配布</td><td >CAから利用者やサーバーへ証明書を送付する</td><td>CA（認証局）</td><td >証明書の流通・管理</td>
+  </tr>
+  <tr>
+    <td>証明書の提示</td><td >通信時に相手に自分の証明書を提示する</td><td>利用者やWebサーバなど</td><td >通信相手に自分の証明書を提示</td>
+  </tr>
+  <tr>
+      <td>証明書の検証</td><td >CAの署名が正しいか？有効期限は失効してないか？</td><td>通信相手・クライアント</td><td >相手が本物か確認する</td>
+  </tr>
+  <tr>
+      <td>信頼チェーンの確認</td><td >そのCAを信頼できるか？ルートCAまでたどれる？</td><td>ブラウザやOSに内蔵された信頼リスト</td><td >PKIの「信頼の連鎖」構築</td>
+  </tr>
+</table>
+
+<h2>🏛️認証局 CA : Certificate Authority</h2>
+<ul>
+<li>🔑公開鍵が正しく本人のものであることは、信頼できる第三者が保証する必要がある。</li>
+<li><strong>信頼できる第三者機関</strong> =  <span class="cloze">認証局（CA）</span> </li>
+<li>認証局：本人情報を確認の上、本人の <span class="cloze">公開鍵</span> に保証を与えた証明書「 <span class="cloze">デジタル証明書</span> 」を発行</li>
+<li>利用者：証明書から「認証局が認めた公開鍵」を取得し、安全な通信に利用する</li>
+</ul>
+<h2>📜デジタル証明書</h2>
+<ul>
+<li><span class="cloze">X.509</span> ：ITU-T が定めた証明書の規格</li>
+<li>🧾 証明書の本体（署名前）</li>
+</ul>
+<table>
+  <tr>
+    <th>フィールド名</th><th>説明</th>
+  </tr>
+  <tr>
+    <td>バージョン</td><td >証明書のバージョン情報</td>
+  </tr>
+  <tr>
+    <td>シリアル番号</td><td >証明書を一意に識別する番号</td>
+  </tr>
+  <tr>
+      <td>認証局の識別名</td><td >証明書を発行したCAの識別名</td>
+  </tr>
+  <tr>
+      <td>有効期限</td><td >証明書の有効期間（開始日〜終了日）</td>
+  </tr>
+  <tr>
+      <td>公開鍵所有者の識別名</td><td >証明書の利用者の識別名</td>
+  </tr>
+  <tr>
+      <td>公開鍵</td><td >利用者の公開鍵</td>
+  </tr>
+  <tr>
+      <td>証明書の署名アルゴリズム</td><td >認証局が使った署名方式（例：SHA256withRSA）</td>
+  </tr>
+</table>
+<ul>
+<li>✍️ 認証局が上記に署名（メッセージダイジェスト＋秘密鍵で暗号化）</li>
+<li>📜完成したX.509証明書（署名付き）</li>
+</ul>
+<table>
+  <tr>
+    <th>フィールド名</th><th>説明</th>
+  </tr>
+  <tr>
+    <td>バージョン</td><td >証明書のバージョン情報</td>
+  </tr>
+  <tr>
+    <td>シリアル番号</td><td >証明書を一意に識別する番号</td>
+  </tr>
+  <tr>
+      <td>認証局の識別名</td><td >証明書を発行したCAの識別名</td>
+  </tr>
+  <tr>
+      <td>有効期限</td><td >証明書を発行したCAの識別名</td>
+  </tr>
+  <tr>
+      <td>公開鍵所有者の識別名</td><td >証明書の利用者の識別名</td>
+  </tr>
+  <tr>
+      <td>公開鍵</td><td >利用者の公開鍵</td>
+  </tr>
+  <tr>
+      <td>証明書の署名アルゴリズム</td><td >認証局が使った署名方式（例：SHA256withRSA）</td>
+  </tr>
+  <tr>
+      <td>認証局のデジタル署名</td><th>← ここに追加された</th>
+  </tr>
+</table>
+<ul>
+<li>認証局のデジタル署名が確認できれば、公開鍵は「証明書に記載された本人所有のもの」</li>
+</ul>
+<h2>📄失効リスト CRL：Certificate Revocation List</h2>
+<ul>
+<li>公開鍵の漏洩や誤発信など、何らかの理由によって有効期限内に証明書が失効したもののリスト。</li>
+<li>・認証局から定期的に配布される</li>
+<li>💡署名や有効期限だけでなく、 <strong>証明書がCRLに含まれていないかどうか</strong> も確かめよう！</li>
+<li>🧩 CRLの基本構成（X.509 CRL）</li>
+</ul>
+<table>
+  <tr>
+    <th>フィールド名</th><th>説明</th>
+  </tr>
+  <tr>
+    <td>バージョン</td><td >CRLのバージョン（現在はv2が主流）</td>
+  </tr>
+  <tr>
+    <td>発行者識別名</td><td >このCRLを発行した認証局（CA）の識別名</td>
+  </tr>
+  <tr>
+      <td>発行日時</td><td >CRLを発行した日時</td>
+  </tr>
+  <tr>
+      <td>次回更新日時</td><td >次のCRLが発行される予定の日時</td>
+  </tr>
+  <tr>
+      <td>失効リスト</td><td >失効した証明書の一覧（それぞれに「シリアル番号」「失効日時」などが含まれる）</td>
+  </tr>
+  <tr>
+      <td>署名アルゴリズム</td><td >このCRLに署名する際に使ったアルゴリズム</td>
+  </tr>
+  <tr>
+      <td>CAのデジタル署名</td><td >CRLの本体をCAがハッシュ→秘密鍵で署名したもの（改ざん防止）</td>
+  </tr>
+</table>
+<ul>
+<li>🧭 CRLの流れ</li>
+<li>① CAが失効すべき証明書の情報を収集</li>
+<li>② CRLの本体を作る（失効リスト含む）</li>
+<li>③ 本体にハッシュをかけて、CAの秘密鍵で署名</li>
+<li>④ 完成したCRLを公開（証明書検証時に使われる）</li>
+</ul>
+<h2>🕓OCSP：Online Certificate Status Protocol</h2>
+<ul>
+<li>デジタル証明書が有効かどうかを認証局に問い合わせるプロトコル。</li>
+<li>失効状態を <span class="cloze">オンライン</span> で <span class="cloze">リアルタイム</span> に確認する。</li>
+<li>CRL方式に比べ、失効状態を <span class="cloze">よりタイムリー</span>に確認できる 。</li>
+<li>必要な証明書だけ確認するから <span class="cloze">軽量</span> </li>
+</ul>
+<h2>💡PKIによる認証＆ 認証局の階層</h2>
+<ul>
+<li>認証局の階層：<strong>信頼の連鎖</strong> をつくる仕組み（ルートCA → 中間CA → 利用者証明書）</li>
+<li>🔗「そのCAを信頼できるのか？」という疑問を解消する仕組み</li>
+<li>① クライアントが証明書を受け取る。</li>
+<li>② 証明書の署名（デジタル署名）を検証するために、<strong>その署名をしたCAの証明書（公開鍵）を使う</strong>。</li>
+<li>③ でも、「 <strong>そのCAが本物か？</strong> 」をさらに検証したい（さらに上位のCAへ…）</li>
+<li>④最終的に<strong>ルートCA</strong>までたどり着ければ「信頼の連鎖」が成立。</li>
+<li>🏛️<strong>CAの階層構造</strong> ：最終的に「ルートCAまで信頼の連鎖がつながればOK！」</li>
+<li>・ ルートCAは、ブラウザやOSが最初から信頼してる</li>
+<li>・ だから、ルートからの署名の連鎖で「信頼できる証明書だ」と判断できる</li>
+<li>💡なんでルートCAだけじゃないの？</li>
+<li>・ ルートCAは「<strong>絶対的な信頼の源</strong>」：ルートCAの秘密鍵が漏れたり不正利用されたら世界中の信頼関係が崩壊！</li>
+<li>🛡️ 中間CAを使うメリット</li>
+</ul>
+<table>
+  <tr>
+    <th>メリット</th><th>内容</th>
+  </tr>
+  <tr>
+    <td>セキュリティの分離</td><td >ルートCAはオフラインにして保管 → 滅多に使わない</td>
+  </tr>
+  <tr>
+    <td>柔軟な運用</td><td >中間CAを複数用意して、用途や会社ごとに分担できる</td>
+  </tr>
+  <tr>
+      <td>インシデント対応</td><td >中間CAに問題があっても、ルートは無事 → すぐ入れ替え可能</td>
+  </tr>
+</table>
+<ul>
+<li>証明書を発行したCAを信頼していないとき、自分が信頼するCAまで認証チェーンを遡る。</li>
+<li>ルート証明書：認証局が自身の正当性を証明するために、自ら署名したもの。</li>
+</ul>
+<h2>🧱ルート証明書</h2>
+<ul>
+<li>PKIにおける最上位の証明書：</li>
+<li>一番上にいる「ルート認証局（Root CA）」が自ら発行し、自ら署名している（＝ <span class="cloze">自己署名証明書</span> ）</li>
+<li>このルート証明書が<strong>信頼の起点</strong>（ <span class="cloze">トラストアンカー</span> ） となる。</li>
+<li>すべての証明書の信頼は、最終的にルート証明書までたどって確認する。</li>
+<li>ルート証明書が信頼されているからこそ、その下位（中間CAや利用者証明書）も信頼できると判断される。</li>
+<li>🔁「<strong>自分で自分を証明</strong>」ってどういうこと？</li>
+<li>😎 「私はルートCAです（自分で名乗る）」</li>
+<li>😎 「その証明は…私がしました（自己署名）」</li>
+<li><strong>他人の証明に頼らない唯一の証明書</strong></li>
+<li>なぜ信頼できるの？：<strong>OSやブラウザが「信頼してもいい」と決めてる</strong> から！</li>
+<li>PCやスマホの中には「このルート証明書は信頼してOK！」というリストが入ってる。</li>
+<li>ルート証明書は「<strong>誰かに証明されているわけじゃないのに、みんなが“この人は信用できる”と前提にしてる先生みたいな存在</strong>」</li>
+<li>🔒信頼の構造（ITと現実の対比）※AI出力</li>
+</ul>
+<table>
+  <tr>
+    <th>ITの世界の「信頼」</th><th>現実世界の「信頼」</th>
+  </tr>
+  <tr>
+    <td>OSやブラウザに内蔵されたルート証明書</td><td >国や公共機関が「この身分証は正当です」と認めている</td>
+  </tr>
+  <tr>
+    <td>ルートCA（自己署名）</td><td >国家が発行するパスポート</td>
+  </tr>
+  <tr>
+      <td>中間CA → サーバー証明書</td><td >市役所で発行された住民票</td>
+  </tr>
+</table>
+<ul>
+<li>AppleやMicrosoftが“民間の国”として「この人たちは本物です」と言ってるような構図</li>
+<li>信頼を管理するための基準：</li>
+<li>・ Apple, Microsoft, Mozillaなどには「<strong>ルートプログラム</strong>」という参加基準がある（運営実績・セキュリティ対策・監査レポート提出など）</li>
+<li>・ 国が発行する電子証明書（JPKIなど）も、一部ルート証明書として使われる</li>
+<li>・ アメリカやEUでは、ある種の「準公的な認証局（Federal PKI）」も存在する</li>
+</ul>
+<h2>🔗 誰が誰を保証してるの？</h2>
+<ul>
+<li>インターネットのTLS証明書</li>
+</ul>
+<table>
+  <tr>
+    <td>Apple / Microsoft / Mozilla（ブラウザやOS提供者）</td>
+  </tr>
+  <tr>
+    <th>↓ 信頼してる</th>
+  </tr>
+  <tr>
+    <td>ルートCA（自己署名、民間企業）</td>
+  </tr>
+  <tr>
+      <th> ↓ 証明してる</th>
+  </tr>
+    <tr>
+    <td>中間CA（大手CAの子会社とか）</td>
+  </tr>
+  <tr>
+    <th> ↓ 証明してる</th>
+  </tr>
+  <tr>
+    <td>Webサイトの証明書（httpsの証明書）</td>
+  </tr>
+  <tr>
+      <th> ↓ 証明してる</th>
+  </tr>
+   <tr>
+    <td>ユーザー（「あ、このサイト安全だな」）</td>
+  </tr>
+</table>
+<ul>
+<li>信頼の起点は、「<strong>OSやブラウザに内蔵されてるルート証明書</strong>」</li>
+<li>→ <strong>中央集権的</strong>な「信頼モデル」（TLS, CA）</li>
+<li>🌐分散型で「<strong>信頼できるルールで全員が合意形成してる</strong>」のが、ブロックチェーン</li>
+<li>✅ TLS（ルート証明書）：中央集権的な「信頼モデル」</li>
+<li>・ 信頼の出発点は「OSやブラウザが内蔵してるルート証明書」</li>
+<li>・ 誰か（AppleやMicrosoftなど）が「これは信頼できるよ」と<strong>お墨付き</strong>を出している。</li>
+<li>・証明書は <strong>階層的（ピラミッド構造）</strong> になっていて、信頼の連鎖がある。</li>
+<li>✅ ブロックチェーン：分散型の「信頼モデル」</li>
+<li>・ 誰も「この人が正しい」と決めない。</li>
+<li>・ 改ざんが起きにくく、<strong>全体の合意が信頼のベース</strong>。</li>
+<li>どちらも「証明」がカギ</li>
+</ul>
+<table>
+  <tr>
+    <th>観点</th><th>TLS（ルート証明書）</th><th>ブロックチェーン</th>
+  </tr>
+  <tr>
+    <td>誰が証明？</td><td >認証局（CA）とブラウザ/OS</td><td >全ノード（分散合意）</td>
+  </tr>
+  <tr>
+    <td>信頼の仕組み</td><td >信頼された第三者が階層的に証明</td><td >自律的なルールと検証で合意</td>
+  </tr>
+  <tr>
+      <td>セキュリティの方向性</td><td >「誰が署名したか」をチェック</td><td >「改ざんできない記録」をチェック</td>
+  </tr>
+</table>
+<ul>
+<li>「<strong>誰が誰を信頼するか／しないか</strong>」「<strong>中央 vs 分散</strong>」「<strong>権威 vs 合意</strong>」ITの世界でずっと問われてる哲学🤔</li>
+</ul>
+<h2>🌎 信頼のしくみ：中央集権 vs 分散</h2>
+<ul>
+<li>ルート証明書から広がる「信頼と権力の構造」</li>
+<li>・一番上（ルート）の証明書は「 <span class="cloze">自己署名（自分で自分を保証）</span>」している。</li>
+<li>・OSやブラウザに「この人は信頼していいよ」とあらかじめ登録されている。</li>
+<li>→ 「公的機関がこの先生を信頼してるから<strong>私たちも従う</strong>」状態。</li>
+<li>🔗 2000年代、Winny登場、スノーデンの告発で揺れ動く信頼の仕組み</li>
+</ul>
+<table>
+  <tr>
+    <th>中央集権型</th><th>分散型</th>
+  </tr>
+  <tr>
+    <td>権威ある一箇所が保証</td><td >複数の人・ノードが相互に検証</td>
+  </tr>
+  <tr>
+    <td>信頼は「上から」くる</td><td >信頼は「ネットワークで合意」される</td>
+  </tr>
+  <tr>
+      <td>国・大企業・CA（認証局）</td><td >ブロックチェーン・ピア同士の署名</td>
+  </tr>
+</table>
+<ul>
+<li>💡キーワード「ピア（peer）＝対等な相手」</li>
+<li>🌐  <span class="cloze">クライアント・サーバー</span> <strong>方式</strong>（中央集権型）</li>
+<li>例：YouTube</li>
+<li>→ YouTubeのサーバーに動画がある</li>
+<li>→ 視聴者はそこにアクセスして見るだけ</li>
+<li>🔁  <span class="cloze">ピア・ツー・ピア</span> （P2P・分散型）</li>
+<li>例：Napster、Winny、BitTorrent</li>
+<li>→ ユーザー同士が <span class="cloze">自分の持ってるファイルの一部</span> を出し合う</li>
+<li>→ 誰か1人がサーバーってわけじゃない</li>
+<li>→ みんなが「ピア（＝仲間・対等な相手）」として動いてる</li>
+<li>💡<strong>インターネットの最初の設計思想は分散型</strong>！</li>
+<li>① 初期構想（ARPANET）は、核攻撃などで <span class="cloze">一部が破壊されても機能し続ける</span>ための分散型ネットワークとして設計されていた。</li>
+<li>② Webの商業化とともに、 <span class="cloze">大規模サーバー</span> を持つプラットフォームが主流（Yahoo!、Googleなど）</li>
+<li>③ P2Pの概念が一般に広まり、分散型への回帰の兆し（ナップスターなど）</li>
+<li>④  <span class="cloze">クラウドコンピューティング</span> の台頭で再び中央集権的なモデルへ（Google, Apple, Facebook, Amazonが「GAFA」と呼ばれ象徴的になった）</li>
+<li>⑤  <span class="cloze">ブロックチェーン</span> 技術の台頭で再び分散型への関心</li>
+</ul>
+<h2>🌎 影響のあった出来事 / Napster vs Metallica</h2>
+<ul>
+<li>メタリカの<strong>未発表曲「I Disappear」</strong> が Napster で<strong>流出＆拡散</strong></li>
+<li>→ Napsterを訴える！（2000年4月）</li>
+<li>⚖️ 訴訟のポイント：</li>
+<li>・Napster ：中央サーバーでは保存してない、<strong>ユーザー同士のやりとり</strong> を主張</li>
+<li>・メタリカ：「<strong>著作権侵害</strong>を助けてる」と猛反発</li>
+<li>・ナップスター上で流通した音楽データの多くは著作権を無視した市販のCDなどからの違法コピー</li>
+<li>・2001年7月に、メタリカとナップスターが双方歩み寄る形で決着（詳細は公表されず）</li>
+<li>🔄 Napster → Spotify の系譜</li>
+</ul>
+<table>
+  <tr>
+    <th >時代</th><th>サービス</th><th>Point1</th><th>Point2</th>
+  </tr>
+  <tr>
+    <td>1999年頃</td><td >Napster</td><td>P2Pで音楽ファイル（MP3）をユーザー同士が共有</td><td >違法DLの温床にも → 訴訟 </td>
+  </tr>
+  <tr>
+    <td>2000年代</td><td >Kazaa, LimeWire など</td><td>Napsterの後継的なP2P型ファイル共有ソフト</td><td >著作権の問題を無視したサービスが乱立</td>
+  </tr>
+  <tr>
+    <td>2003年〜</td><td >iTunes Store</td><td>音楽を「購入」してDLする合法なサービス</td><td >アップルが音楽業界に秩序を戻す</td>
+  </tr>
+  <tr>
+      <td>2008年〜</td><td >Spotify</td><td>音楽は“所有”から“ストリーミング”へ</td><td >月額で聴き放題、正当な権利処理、合法的</td>
+  </tr>
+</table>
+<ul>
+<li>💡 ナップスターを共同創設したショーン・パーカー（Sean Parker）はのちにFacebookの初期投資家となり、同社の初代社長に就任。</li>
+<li>🎧 <strong>Spotify は分散型？</strong></li>
+</ul>
+<table>
+  <tr>
+    <th >項目</th><th>Napster</th><th>Spotify</th><th>YouTube</th>
+  </tr>
+  <tr>
+    <td>仕組み</td><td >P2P（分散）</td><td>クライアント・サーバー（中央集権）</td><td >クライアント・サーバー（中央集権）</td>
+  </tr>
+  <tr>
+    <td>配信者</td><td >ユーザー全員が提供者（勝手に共有）</td><td>提携した音楽提供者（レーベル等）</td><td >誰でも配信可能（審査はある）</td>
+  </tr>
+  <tr>
+    <td>手続き</td><td >勝手にファイル共有（著作権なし）</td><td>正規契約の上で曲を公開</td><td >利用規約に基づいて動画公開（審査後）</td>
+  </tr>
+  <tr>
+      <td>著作権</td><td >無視されがちだった（違法）</td><td>完全合法（ライセンス契約済）</td><td >条件付き合法（削除されることも）</td>
+  </tr>
+   <tr>
+      <td>管理者</td><td >実質的にはいなかった</td><td>Spotify社</td><td >Google社（YouTube）</td>
+  </tr>
+</table>
+<ul>
+<li>🔄 仕組みは分散じゃなくても「自由な発信・共有」の思想はSpotifyやYouTubeで実現された。</li>
+<li>✅ Spotify、初期はP2Pとのハイブリッドだった。</li>
+</ul>
+<h2>🌎 影響のあった出来事 / Winny（ウィニー）</h2>
+<ul>
+<li><strong>Winny</strong>：2002年に金子勇氏によって開発・公開されたファイル共有ソフト。</li>
+<li><strong>特徴</strong>：P2P型、<strong>匿名性が高く、中央サーバを介さない</strong>設計（分散型）。</li>
+<li>🕓 時系列</li>
+</ul>
+<table>
+  <tr>
+    <th>年</th><th>出来事</th><th>反応など</th><th>世界</th>
+  </tr>
+  <tr>
+    <td>2002</td><td >Winny公開</td><td>新技術として注目される</td><td ></td>
+  </tr>
+  <tr>
+    <td>2003</td><td >ウイルス事件等で注目</td><td>セキュリティリスク拡大、報道過熱</td><td ></td>
+  </tr>
+  <tr>
+      <td>2004</td><td >金子勇氏逮捕</td><td>技術者の逮捕が波紋を呼ぶ</td><td >P2P技術ベースのSkype正式リリース</td>
+  </tr>
+  <tr>
+    <td>2006</td><td >第一審：有罪判決</td><td>技術者の署名運動はじまる</td><td >Google が YouTube を傘下に</td>
+  </tr>
+   <tr>
+      <td>2007</td><td ></td><td></td><td >初代iPhone発売<br>Netflixがストリーミング配信に移行</td>
+  </tr>
+   <tr>
+       <td>2008</td><td ></td><td></td><td >P2P利用の音楽配信Spotifyスタート<br>初期はクライアントサーバ型＋P2P型のハイブリッド</td>
+  </tr>
+  <tr>
+    <td>2009</td><td >二審で逆転無罪</td><td>議論深まる</td><td ></td>
+  </tr>
+  <tr>
+      <td>2011</td><td >最高裁で 無罪確定</td><td>正式に無罪、再評価の始まり</td><td ></td>
+  </tr>
+  <tr>
+      <td>2012</td><td >情報処理学会などで再評価の声</td><td>「技術はどう評価すべきか」が問われ始める</td><td ></td>
+  </tr>
+  <tr>
+    <td>2013</td><td >金子勇氏、心筋梗塞で永眠（享年42）</td><td></td><td ></td>
+  </tr>
+  <tr>
+    <td>2014</td><td ></td><td></td><td >Spotify：モバイル通信時代に入り、端末間通信（P2P）から完全なクライアントサーバ型に移行</td>
+  </tr>
+  <tr>
+    <td>2018</td><td >情報処理学会から顕彰</td><td>社会的な名誉回復へ</td><td ></td>
+  </tr>
+</table>
+<ul>
+<li><strong>Winnyの何がすごかったのか？</strong></li>
+<li>・P2P技術を、当時の日本で高性能に実装。</li>
+<li>・サーバーを介さずに、匿名性を高く保った設計。（←今でいう分散型の思想）</li>
+<li>・それまでの他の分散型は「サーバーを減らすこと」が目的だった。</li>
+<li><strong>プログラムとしての難しさ</strong></li>
+<li>・ネットワーク・暗号・分散処理の知識が全部必要。</li>
+<li>・C++での実装で、低レイヤーの工夫が凝らされていた。</li>
+<li><strong>Winny開発の動機</strong> </li>
+<li>→ 「ファイル交換ソフトは海外にもいろいろあるけど、日本発で新しいものができないか、技術的興味から取り組んだ」</li>
+<li><strong>情報処理学会</strong>が彼の<strong>功績を顕彰</strong>した際に使った言葉：</li>
+<li>→ 「新たなP2Pネットワークの可能性を切り拓いた先駆的功績は、今なお情報技術の進歩に大きな示唆を与える」</li>
+<li>🔗 Point</li>
+<li><span class="cloze">P2P通信</span> ：ピア（利用者）同士が直接データをやりとりする通信方式。中央サーバを介さない。</li>
+<li><span class="cloze">分散処理</span> ：処理を複数ノードで分担。Winnyはその一例。</li>
+<li><span class="cloze">匿名性</span> ：ノードの身元を秘匿する。Winnyの特徴でもあり、問題視もされた。</li>
+<li><span class="cloze">情報漏洩</span> 対策：Winny経由で機密情報流出が多発し、セキュリティ教育・対策の必要性が顕在化。</li>
+<li>組織の <span class="cloze">セキュリティポリシー</span> ：ファイル共有ソフトの利用制限など、内部規定の重要性が再認識された。</li>
+<li><span class="cloze">著作権法</span> とIT：技術提供者が違法利用者を幇助したとされ逮捕された例。技術と法の関係の事例として重要。</li>
+<li><span class="cloze">幇助罪</span> ：他人の違法行為を手助けしたとされる場合の刑事責任。</li>
+<li><strong>技術の中立性</strong>：技術そのものは中立であり、使い方の問題という観点。</li>
+<li><strong>技術者倫理</strong>：開発者がどこまで利用者の行動に責任を持つべきか。</li>
+</ul>
+  </main>
+  <script src="../script.js"></script>
+</body>
+</html>
