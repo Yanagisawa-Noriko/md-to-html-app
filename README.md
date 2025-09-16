@@ -299,3 +299,13 @@ md2html/
 ├─ script.js          ← 動作追加
 └─ convert.py         ← 実行スクリプト
 ```
+### 追記：CSSの揺れ止め
+CSSの見た目がコードそのままだと見た目が変わってしまうようになったため、下記を追記2025.9.16
+```
+/* --- ベースの揺れ止め --- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, "Noto Sans JP", sans-serif; line-height: 1.7; }
+```
